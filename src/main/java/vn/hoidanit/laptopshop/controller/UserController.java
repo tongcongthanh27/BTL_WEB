@@ -21,4 +21,10 @@ public class UserController {
     return "home";
   }
 
+  @GetMapping("/admin/user")
+
+  public String getCreateUserPage(Model model) {
+    return "admin/user/create";
+  }
+
 }
