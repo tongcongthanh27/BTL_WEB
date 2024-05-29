@@ -7,14 +7,17 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import vn.hoidanit.laptopshop.domain.User;
+import vn.hoidanit.laptopshop.repository.UserRepository;
 import vn.hoidanit.laptopshop.service.UserService;
 
 @Controller
 public class UserController {
-  private UserService userService;
+  private final UserService userService;
+  private final UserRepository userRepository;
 
-  public UserController(UserService userService) {
+  public UserController(UserService userService, UserRepository userRepository) {
     this.userService = userService;
+    this.userRepository = userRepository;
   }
 
   @GetMapping("/")
@@ -32,7 +35,7 @@ public class UserController {
 
   @PostMapping("/admin/user")
   public String createUser(Model model, @ModelAttribute User newUser) {
-    System.out.println(newUser);
+    this.userRepository.save(newUser);
     return "home";
   }
 
